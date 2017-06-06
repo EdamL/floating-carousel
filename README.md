@@ -96,15 +96,13 @@ $('#my-carousel-button').click(function() {
 });
 ```
 
-### destroy(reInit)
-Removes the Scrolling Carousel functionality and returns the carousel element to its previous state.
-
-Arguments: `reInit` - An optional flag to pass in case you want to reinitialise the carousel later
+### destroy()
+Removes the Floating Carousel functionality and returns the carousel element to its previous state.
 
 ### update(options)
 Updates the carousel
 
-Arguments: `options` - The options to pass into the updated carousel instance
+Argument: `options` - The options to pass into the updated carousel instance
 
 ### pause()
 Stops the carousel from scrolling until the `play()` function is activated (will also stop autoscrolling).
