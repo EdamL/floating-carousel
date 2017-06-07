@@ -2,7 +2,7 @@
 
 Current version: 3.0
 
-The Floating Carousel plugin creates a carousel which is clean and intuitive without the need for controls. The carousel is navigated by relative movement of the cursor (or the user's finger in the case of touch devices). Moving the cursor further to the left of the carousel element causes the content to scroll faster to the right and vice versa. The carousel can be implemented in a vertical alignment which works in the same fashion, but with up/down movements.
+The Floating Carousel plugin creates a carousel which is clean and intuitive without the need for controls. The carousel is navigated by relative movement of the cursor (or the user's finger in the case of touch devices) over the carousel element. Moving the cursor toward  either end of the carousel causes the content to scroll in the opposite direction - the scroll speed increasing the further the cursor is moved.
 
 ## Usage
 
