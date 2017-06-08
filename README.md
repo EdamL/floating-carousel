@@ -32,7 +32,7 @@ To apply the carousel to a `UL` or `LI`, you need to wrap the list in a parent e
   $('#carousel').floatingCarousel();
 </script>
 ```
-See the demo file for more detailed examples of usage.
+See the [demos](https://github.com/EdamL/floating-carousel/tree/master/demo) for more detailed examples of usage.
 
 ## Options
 
