@@ -7,30 +7,29 @@
 *   http://www.gnu.org/licenses/gpl.html
 */
 (function ($) {
-    $.fn.floatingCarousel = function (options, i) {
+	$.fn.floatingCarousel = function (options, i) {
 
-        // Handle multiple elements
-        if (this.length > 1) {
-            var a = new Array();
-            this.each(
-                function (i) {
-                    a.push($(this).floatingCarousel(options, i));
-                });
-            return a;
-        }
-        var opts = $.extend({}, $().floatingCarousel.defaults, options);
+		// Handle multiple elements
+		if (this.length > 1) {
+			var a = new Array();
+			this.each(
+				function (i) {
+					a.push($(this).floatingCarousel(options, i));
+				});
+			return a;
+		}
+		var opts = $.extend({}, $().floatingCarousel.defaults, options);
  				var scrollerInterval;
  				var autoScrollInterval;
  				
-        /* PUBLIC FUNCTIONS */
- 
-        
-        this.destroy = function () {
-            var obj = this;
-            $(obj).removeData('floatingCarousel');
-            
-            obj.children(':eq(1)').remove();
-	     			if ($(this).find('> div').length > 0) {
+		/* PUBLIC FUNCTIONS */
+		
+		this.destroy = function () {
+			var obj = this;
+			$(obj).removeData('floatingCarousel');
+			
+			obj.children(':eq(1)').remove();
+		 			if ($(this).find('> div').length > 0) {
 						 obj[0].innerHTML = $(this).find('> div')[0].innerHTML;
 							obj.children().each(function() {
 								$(this, obj)[0].style.cssText = '';
@@ -43,37 +42,37 @@
 						}
 						obj.children()[0].style.cssText = '';
 						obj[0].style.cssText = '';
-	     			obj.unbind();
-        };
+		 			obj.unbind();
+		};
  
-        this.update = function (options) {
-            opts = null;
-            opts = $.extend({}, $().floatingCarousel.defaults, options);
-            this.destroy(true);
-            return this.create();
-        };
-        
-        
+		this.update = function (options) {
+			opts = null;
+			opts = $.extend({}, $().floatingCarousel.defaults, options);
+			this.destroy(true);
+			return this.create();
+		};
+		
+		
  		/* CREATE FUNCTION */
-        this.create = function (iteration, method) {
+		this.create = function (iteration, method) {
 			if(!$(this).html()) {
 				return false; 
 			}
-            var obj = this.addClass('floatingCarouselContainer');
-            var objContent = obj.html();
-            
-            // stop double initialization
-            if ($(obj).data('floatingCarousel') == true && method != 'pause') {
-                return this;
+			var obj = this.addClass('floatingCarouselContainer');
+			var objContent = obj.html();
+			
+			// stop double initialization
+			if ($(obj).data('floatingCarousel') == true && method != 'pause') {
+				return this;
  			}
 
-            // beforeCreateFunction
-            if (opts.beforeCreateFunction != null && $.isFunction(opts.beforeCreateFunction)) {
-                opts.beforeCreateFunction(obj, opts);
+			// beforeCreateFunction
+			if (opts.beforeCreateFunction != null && $.isFunction(opts.beforeCreateFunction)) {
+				opts.beforeCreateFunction.call(obj);
  			}
-            
-            //START MAIN CREATE FUNCTIONALITY
-            
+			
+			//START MAIN CREATE FUNCTIONALITY
+			
 			var scrollerContent,
 				scrollSwitch = 0,
 				scrollerPosition,
@@ -123,7 +122,7 @@
 				default:
 				console.log('unable to initialise scroller - please ensure contents are either in a UL, an OL or in DIVs');
 				return false;
-			}	
+			}
 			switch(opts.scrollSpeed.toLowerCase()) {
 				case 'slow':
 				sMultiplier = 1;
@@ -166,7 +165,7 @@
 			
 			}
 			
-			if (!method) {	
+			if (!method) {
 				if (opts.scrollerAlignment.toLowerCase()!='vertical') {
 					scrollContainer.style.height = scrollerHeight+'px';
 				}
@@ -186,6 +185,10 @@
 				}
 				else {
 					$(scrollerContent[1]).remove();
+
+					if (opts.afterCreateFunction != null && $.isFunction(opts.afterCreateFunction)) {
+						opts.afterCreateFunction.call(obj);
+		 			}
 					return false;
 				}
 				scrollContainer.style.overflow = 'hidden';
@@ -222,7 +225,7 @@
 					});
 				});
 				
-				if (opts.scrollerAlignment.toLowerCase()!='vertical') {	
+				if (opts.scrollerAlignment.toLowerCase()!='vertical') {
 					scrollerContent[0].style.left = (offSetDistance>0) ? '-'+offSetDistance+'px' : '0';
 					if (opts.looped==true) {
 						scrollerContent[1].style.left = scrollerContent[0].offsetLeft-scrollContentLength+'px';
@@ -250,31 +253,31 @@
 					if (e.changedTouches) {
 						touch = e.changedTouches[0];
 						cursor.x = touch.pageX;
-				        cursor.y = touch.pageY;
+						cursor.y = touch.pageY;
 					}
 					else if (e.pageX || e.pageY) {
-				        cursor.x = e.pageX;
-				        cursor.y = e.pageY;
-				    } 
-				    else {
-				        var de = document.documentElement;
-				        var b = document.body;
-				        cursor.x = e.clientX + ((de.scrollLeft || b.scrollLeft) - (de.clientLeft || 0));
-				        cursor.y = e.clientY + ((de.scrollTop || b.scrollTop) - (de.clientTop || 0));
-				    }
-				    cursorPosition = cursor;
+						cursor.x = e.pageX;
+						cursor.y = e.pageY;
+					} 
+					else {
+						var de = document.documentElement;
+						var b = document.body;
+						cursor.x = e.clientX + ((de.scrollLeft || b.scrollLeft) - (de.clientLeft || 0));
+						cursor.y = e.clientY + ((de.scrollTop || b.scrollTop) - (de.clientTop || 0));
+					}
+					cursorPosition = cursor;
 				}
 
 				obj[0].addEventListener('touchstart', function() {
-	            	touchEnabled = opts.enableTouchEvents || false;
+					touchEnabled = opts.enableTouchEvents || false;
 					functions.startCarousel();
-	            });
-	            obj[0].addEventListener('touchend', function() {
+				});
+				obj[0].addEventListener('touchend', function() {
 					functions.stopCarousel(true);
 					if (opts.autoScroll == true) {
 						functions.autoScroll();
 					}
-	            });
+				});
 				obj[0].addEventListener('touchmove', function(e) {
 					onMove(e);
 				});
@@ -491,35 +494,35 @@
 					functions.autoScroll();
 				}
 			}
-            
-            switch (method) {
-     			case 'pause':
-     			functions.stopCarousel();
+			
+			switch (method) {
+	 			case 'pause':
+	 			functions.stopCarousel();
 				if (autoScrollInterval) {
 					clearInterval(autoScrollInterval);
 					autoScrollInterval = 0;
 				}
-     			obj.unbind('mouseenter');
-     			obj.unbind('mouseleave');
-     			$(obj).data('floatingCarousel', false);
-     			return;
-     			break;
-     			case 'play':
-     			$('html').mousemove(function(e) {
+	 			obj.unbind('mouseenter');
+	 			obj.unbind('mouseleave');
+	 			$(obj).data('floatingCarousel', false);
+	 			return;
+	 			break;
+	 			case 'play':
+	 			$('html').mousemove(function(e) {
 					 	var cursor = {x:0, y:0};
-				    if (e.pageX || e.pageY) {
-				        cursor.x = e.pageX;
-				        cursor.y = e.pageY;
-				    } 
-				    else {
-				        var de = document.documentElement;
-				        var b = document.body;
-				        cursor.x = e.clientX + (de.scrollLeft || b.scrollLeft) - (de.clientLeft || 0);
-				        cursor.y = e.clientY + (de.scrollTop || b.scrollTop) - (de.clientTop || 0);
-				    }
-				    cursorPosition = cursor;
-     				
-     				if (cursorPosition.x>=obj.offset().left && cursorPosition.x<=(obj.offset().left+obj[0].offsetWidth) &&
+					if (e.pageX || e.pageY) {
+						cursor.x = e.pageX;
+						cursor.y = e.pageY;
+					} 
+					else {
+						var de = document.documentElement;
+						var b = document.body;
+						cursor.x = e.clientX + (de.scrollLeft || b.scrollLeft) - (de.clientLeft || 0);
+						cursor.y = e.clientY + (de.scrollTop || b.scrollTop) - (de.clientTop || 0);
+					}
+					cursorPosition = cursor;
+	 				
+	 				if (cursorPosition.x>=obj.offset().left && cursorPosition.x<=(obj.offset().left+obj[0].offsetWidth) &&
 						 cursorPosition.y>=obj.offset().top && cursorPosition.y<=(obj.offset().top+obj[0].offsetHeight)) {
 						 		functions.startCarousel();
 						}
@@ -532,48 +535,48 @@
 								functions.autoScroll();
 							}
 						});
-				    $(this).unbind('mousemove');
+					$(this).unbind('mousemove');
 					
 					if (opts.autoScroll == true) {
 						functions.autoScroll();
 					}
 				});
-     			break;
-     		}	
-            
-            //END MAIN CREATE FUNCTIONALITY
+	 			break;
+	 		}	
+			
+			//END MAIN CREATE FUNCTIONALITY
  
-            // Set plugin flag
-            $(obj).data('floatingCarousel', true);
+			// Set plugin flag
+			$(obj).data('floatingCarousel', true);
  
-            // afterCreateFunction
-            if (opts.afterCreateFunction != null && $.isFunction(opts.afterCreateFunction)) {
-                opts.afterCreateFunction(obj, opts);
+			// afterCreateFunction
+			if (opts.afterCreateFunction != null && $.isFunction(opts.afterCreateFunction)) {
+				opts.afterCreateFunction.call(obj);
  			}
-            return this;
-        };
-        
-        this.pause = function () {
-            this.create(i, 'pause');
-        };
-        this.play = function () {
-            this.create(i, 'play');
-        };
+			return this;
+		};
+		
+		this.pause = function () {
+			this.create(i, 'pause');
+		};
+		this.play = function () {
+			this.create(i, 'play');
+		};
  				
  		// CREATE FUNCTION CALL
-        return this.create(i);
-    };
+		return this.create(i);
+	};
  
-    jQuery.fn.floatingCarousel.defaults = {
-    	autoScroll : false,
-    	autoScrollDirection : 'left',
-    	autoScrollSpeed : 10000,
+	jQuery.fn.floatingCarousel.defaults = {
+		autoScroll : false,
+		autoScrollDirection : 'left',
+		autoScrollSpeed : 10000,
 	 	looped : true,
 	 	scrollerAlignment : 'horizontal',
-        scrollerOffset : 0,
+		scrollerOffset : 0,
 	 	scrollSpeed : 'medium',
-        beforeCreateFunction : null,
-        afterCreateFunction : null,
-        enableTouchEvents : true
-    };
+		beforeCreateFunction : null,
+		afterCreateFunction : null,
+		enableTouchEvents : true
+	};
 })(jQuery);
