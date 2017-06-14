@@ -2,11 +2,11 @@
 
 Current version: 3.0
 
-The Floating Carousel plugin creates a carousel without controls, where the movemeont of the carousel is controlled by cursor or touch movement across the carousel element. Moving the cursor further to the left causes the content to scroll faster to the right and vice versa, or up and down for the horizontally scrolling version.
+The Floating Carousel plugin creates a carousel which is clean and intuitive without the need for controls. The carousel is navigated by relative movement of the cursor (or the user's finger in the case of touch devices) over the carousel element. Moving the cursor toward  either end of the carousel causes the content to scroll in the opposite direction - the scroll speed increasing the further the cursor is moved in either direction.
 
 ## Usage
 
-To call the carousel on an Ordered or Unordered list, wrap the list in a parent element and call the carousel on that:
+To apply the carousel to a `UL` or `LI`, you need to wrap the list in a parent element to call the carousel on:
 
 ```html
 <div id="carousel">
@@ -20,7 +20,7 @@ To call the carousel on an Ordered or Unordered list, wrap the list in a parent 
   $('#carousel').floatingCarousel();
 </script>
 ```
-...Or you can use DIV elements:
+...Or you can use `DIV` elements:
 
 ```html
 <div id="carousel">
@@ -32,7 +32,7 @@ To call the carousel on an Ordered or Unordered list, wrap the list in a parent 
   $('#carousel').floatingCarousel();
 </script>
 ```
-See the demo file for more detailed examples of usage.
+See the [demos](https://github.com/EdamL/floating-carousel/tree/master/demo) for more detailed examples of usage.
 
 ## Options
 
