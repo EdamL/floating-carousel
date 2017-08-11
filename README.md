@@ -123,7 +123,7 @@ If set to `true` the carousel will respond to touch events, with similar behavio
 Default: `true`
 
 ### touchOverflowHidden
-In order to prevent unwanted scrolling during touch events, a style of `body { overflow : hidden }` is applied when touch is activated on the carousel element. Set this value to `false` if you want to disable this functionality.
+In order to prevent unwanted page scrolling during touch events, a style of `body { overflow : hidden }` is applied when touch is activated on the carousel element. Set this value to `false` if you want to disable this functionality.
 
 Default: `true`
 
