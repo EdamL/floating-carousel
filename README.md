@@ -1,15 +1,35 @@
 # Floating Carousel jQuery plugin
 
-Current version: 3.0
+Current version: 4.0
 
-The Floating Carousel plugin creates a carousel which is clean and intuitive without the need for controls. The carousel is navigated by relative movement of the cursor (or the user's finger in the case of touch devices) over the carousel element. Moving the cursor toward  either end of the carousel causes the content to scroll in the opposite direction - the scroll speed increasing the further the cursor is moved in either direction.
+Floating Carousel is a dependency-free Javascript carousel which is intended to be clean and intuitive without the need for controls. The carousel is navigated by relative movement of the cursor (or the user's finger in the case of touch devices) over the carousel element. Moving the cursor toward  either end of the carousel causes the content to scroll in the opposite direction - the scroll speed increasing the further the cursor is moved in either direction.
 
 ## Usage
 
-To apply the carousel to a `UL` or `LI`, you need to wrap the list in a parent element to call the carousel on:
+### Vanilla JS
+
+You can call the floatingCarousel constructor using a standard [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) CSS string...
+```js
+  var floatingCarousel = new floatingCarousel.('#carousel-element');
+```
+
+...or on a DOM element (or collection of elements, if you're that way inclined):
+```js
+  var element = document.querySelectorAll('.carousel-element');
+  var floatingCarousel = new floatingCarousel.(element);
+```
+
+### jQuery
+You can also call floatingCarousel as a jQuery method, in the usual way:
+```js
+  $('#carousel-element').floatingCarousel();
+```
+
+### The markup
+To apply the carousel to a `UL` or `LI`, you need to wrap the list node in a parent element to call the carousel on:
 
 ```html
-<div id="carousel">
+<div id="carousel-element">
 	<ul class="clearfix">
 		<li>Carousel Item One</li>
 		<li>Carousel Item Two</li>
@@ -17,24 +37,42 @@ To apply the carousel to a `UL` or `LI`, you need to wrap the list in a parent e
 	</ul>
 </div>
 <script type="text/javascript">
-  $('#carousel').floatingCarousel();
+  var floatingCarousel = new floatingCarousel.('#carousel-element');
 </script>
 ```
 ...Or you can use `DIV` elements:
 
 ```html
-<div id="carousel">
+<div id="carousel-element">
   <div>Carousel Item One</div>
   <div>Carousel Item Two</div>
   <div>Carousel Item Three</div>
 </div>
 <script type="text/javascript">
-  $('#carousel').floatingCarousel();
+  var floatingCarousel = new floatingCarousel.('#carousel-element');
 </script>
 ```
 See the [demos](https://github.com/EdamL/floating-carousel/tree/master/demo) for more detailed examples of usage.
 
 ## Options
+
+Can be applied as an optional argument in the floatingCarousel constructor:
+
+```js
+  var floatingCarousel = new floatingCarousel.('#carousel-element', { 
+	autoScroll : true, 
+	scrollSpeed : 'fast'
+   });
+```
+
+Or in the jQuery method:
+
+```js
+  $('#carousel-element').floatingCarousel({ 
+	autoScroll : true, 
+	scrollSpeed : 'fast'
+   });
+```
 
 ### autoScroll
 Boolean - If set to 'true' the carousel will scroll automatically at set speed in a set direction when the mouse cursor is not over it.
@@ -84,28 +122,33 @@ If set to `true` the carousel will respond to touch events, with similar behavio
 
 Default: `true`
 
-## Exposed functions
+### touchOverflowHidden
+In order to prevent unwanted scrolling during touch events, a style of `body { overflow : hidden }` is applied when touch is activated on the carousel element. Set this value to `false` if you want to disable this functionality.
 
-Use these by storing the carousel instance in an object:
+Default: `true`
+
+## Exposed methods
+
+Usage:
 
 ```js
-var myCarousel = $('#my-carousel-container').floatingCarousel();
+var floatingCarousel = new floatingCarousel.('#carousel-element');
 		
-$('#my-carousel-button').click(function() {
-	myCarousel.Pause();
+$('#clickable-element').click(function() {
+	myCarousel.pause();
 });
 ```
 
 ### destroy()
 Removes the Floating Carousel functionality and returns the carousel element to its previous state.
 
-### update(options)
+### update(\[options\])
 Updates the carousel
 
 Argument: `options` - The options to pass into the updated carousel instance
 
 ### pause()
-Stops the carousel from scrolling until the `play()` function is activated (will also stop autoscrolling).
+Disables all UI functionality associated with the carousel until the `play()` function is activated (will also stop autoscrolling).
 
 ### play()
-Re-enables the scrolling action on the carousel after the `pause()` function has been activated (also re-starts autoscrolling if it is set to `true`).
+Used to reinstate UI functionality after the `pause()` method has been called (also re-starts autoscrolling if it has been set to `true`).
