@@ -135,7 +135,7 @@ Usage:
 var floatingCarousel = new floatingCarousel.('#carousel-element');
 		
 $('#clickable-element').click(function() {
-	myCarousel.destroy();
+	floatingCarousel.destroy();
 });
 ```
 
