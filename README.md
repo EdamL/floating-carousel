@@ -26,7 +26,7 @@ You can also call floatingCarousel as a jQuery method, in the usual way:
 ```
 
 ### The markup
-To apply the carousel to a `UL` or `LI`, you need to wrap the list node in a parent element to call the carousel on:
+To apply the carousel to a `UL` or `OL`, you need to wrap the list node in a parent element to call the carousel on:
 
 ```html
 <div id="carousel-element">
