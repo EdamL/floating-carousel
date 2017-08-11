@@ -23,10 +23,10 @@
         <h2>Default settings:</h2>
 
         <code>
-            $('#carousel-default').floatingCarousel();
+            <strong>var</strong> carouselDefault = <strong>new</strong> floatingCarousel('#carousel-default');
         </code>
 
-        <div class="carousel" id="carousel-default">
+        <div class="carousel carousel-default" id="carousel-default">
             <ul>
                 <li><span>1</span></li>
                 <li><span>2</span></li>
@@ -44,7 +44,7 @@
         <h2>Autoscroll from left to right with user-triggered scrolling set to 'fast':</h2>
 
         <code>
-            $('#carousel-autoscroll').floatingCarousel({<br />
+            var carouselAutoscroll = new floatingCarousel('#carousel-autoscroll', {<br />
             &nbsp;&nbsp;&nbsp;autoScroll : true,<br />
             &nbsp;&nbsp;&nbsp;autoScrollDirection : 'right',<br />
             &nbsp;&nbsp;&nbsp;autoScrollSpeed : 20000,<br />
@@ -70,7 +70,7 @@
          <h2>Vertical carousel (using divs):</h2>
 
         <code>
-            $('#carousel-vertical').floatingCarousel({<br />
+            var carouselVertical = new floatingCarousel('#carousel-vertical', {<br />
             &nbsp;&nbsp;&nbsp;scrollerAlignment : 'vertical'<br />
             });
         </code>
@@ -88,7 +88,7 @@
             <div><span>10</span></div>
         </div>
 
-        <h2>Responsive carousel implementation using jQuery <a href="https://github.com/cowboy/jquery-throttle-debounce" target="_blank">Throttle/Debounce plugin</a>:</h2>
+        <h2>Responsive carousel implementation using jQuery &amp; <a href="https://github.com/cowboy/jquery-throttle-debounce" target="_blank">Throttle/Debounce plugin</a>:</h2>
 
         <code>
             var opts = {<br />
@@ -146,30 +146,31 @@
 
 
         // Default carousel
-        $('#carousel-default').floatingCarousel();
+        //var carousel = $('div.carousel-default').floatingCarousel({ autoScroll : true, touchOverflowHidden : false });
+        var carouselDefault = new floatingCarousel('#carousel-default');
 
         // Autoscroll
-        $('#carousel-autoscroll').floatingCarousel({
-            autoScroll : true,
-            autoScrollDirection : 'right',
-            autoScrollSpeed : 20000,
-            scrollSpeed : 'fast'
-        });
+        var carouselAutoscroll = new floatingCarousel('#carousel-autoscroll', {
+                                    autoScroll : true,
+                                    autoScrollDirection : 'right',
+                                    autoScrollSpeed : 20000,
+                                    scrollSpeed : 'fast'
+                                });         
 
         // vertical
-        $('#carousel-vertical').floatingCarousel({
-            scrollerAlignment : 'vertical'
-        });
+        var carouselVertical = new floatingCarousel('#carousel-vertical', {
+                                    scrollerAlignment : 'vertical'
+                                });
 
         //responsive
         var opts = {
                 autoScroll : true,
                 autoScrollSpeed : 20000
-            },
-            responsiveCarousel = $('#carousel-responsive').floatingCarousel(opts);
+            }
+        var responsiveCarousel = $('#carousel-responsive').floatingCarousel(opts);
         $(window).resize($.debounce(100, function () {
             responsiveCarousel.update(opts);
-        }));
+        })); 
     </script>
 </html>
 
