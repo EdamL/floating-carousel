@@ -148,7 +148,7 @@ Updates the carousel
 Argument: `options` - The options to pass into the updated carousel instance
 
 ### pause()
-Disables all UI functionality associated with the carousel until the `play()` function is activated (will also stop autoscrolling).
+Temporarily disables all UI functionality associated with the carousel (will also stop autoscrolling).
 
 ### play()
 Used to reinstate UI functionality after the `pause()` method has been called (also re-starts autoscrolling if it has been set to `true`).
