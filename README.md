@@ -10,13 +10,13 @@ Floating Carousel is a dependency-free Javascript carousel which is intended to 
 
 You can call the floatingCarousel constructor using a standard [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) CSS string...
 ```js
-  var floatingCarousel = new floatingCarousel.('#carousel-element');
+  var myCarousel = new floatingCarousel.('#carousel-element');
 ```
 
 ...or on a DOM element (or collection of elements, if you're that way inclined):
 ```js
   var element = document.querySelectorAll('.carousel-element');
-  var floatingCarousel = new floatingCarousel.(element);
+  var myCarousel = new floatingCarousel.(element);
 ```
 
 ### jQuery
@@ -37,7 +37,7 @@ To apply the carousel to a `UL` or `OL`, you need to wrap the list node in a par
 	</ul>
 </div>
 <script type="text/javascript">
-  var floatingCarousel = new floatingCarousel.('#carousel-element');
+  var myCarousel = new floatingCarousel.('#carousel-element');
 </script>
 ```
 ...Or you can use `DIV` elements:
@@ -49,7 +49,7 @@ To apply the carousel to a `UL` or `OL`, you need to wrap the list node in a par
   <div>Carousel Item Three</div>
 </div>
 <script type="text/javascript">
-  var floatingCarousel = new floatingCarousel.('#carousel-element');
+  var myCarousel = new floatingCarousel.('#carousel-element');
 </script>
 ```
 See the [demos](https://github.com/EdamL/floating-carousel/tree/master/demo) for more detailed examples of usage.
@@ -59,7 +59,7 @@ See the [demos](https://github.com/EdamL/floating-carousel/tree/master/demo) for
 Can be applied as an optional argument in the floatingCarousel constructor:
 
 ```js
-  var floatingCarousel = new floatingCarousel.('#carousel-element', { 
+  var myCarousel = new floatingCarousel.('#carousel-element', { 
 	autoScroll : true, 
 	scrollSpeed : 'fast'
    });
@@ -132,10 +132,10 @@ Default: `true`
 Usage:
 
 ```js
-var floatingCarousel = new floatingCarousel.('#carousel-element');
+var myCarousel = new floatingCarousel.('#carousel-element');
 		
 $('#clickable-element').click(function() {
-	floatingCarousel.destroy();
+	myCarousel.destroy();
 });
 ```
 
