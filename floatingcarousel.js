@@ -87,21 +87,26 @@
 
 	/**
      * To set multiple style properties on either a single DOM object or multiple DOM objects:
-     * (pass properties in as an object of property/value pairs as per jQuery.css() method)
+     * (pass properties in as an object of property/value pairs)
      */
     var setProperties = function(objArray, properties) {
-    	if(objArray.length) {
-			forEach(objArray, function (obj) {
-	            for (var property in properties)
-	            	obj.style[property] = properties[property];
-	        });
-		}
-		else {
+
+        var setProp = function(obj, prop, val) {
+            obj.style[prop] = val;
+        }
+
+        if(objArray.length) {
+            forEach(objArray, function (obj) {
+                for (var property in properties)
+                    setProp(obj, property, properties[property]);
+            });
+        }
+        else {
             for (var property in properties)
-            	objArray.style[property] = properties[property];
-		}
+                setProp(objArray, property, properties[property]);
+        }
         return objArray;
-	};
+    };
 
 	/**
      * To check that a DOM object has a matching selector:
