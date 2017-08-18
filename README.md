@@ -1,4 +1,4 @@
-# Floating Carousel jQuery plugin
+# Floating Carousel
 
 Current version: 4.0
 
