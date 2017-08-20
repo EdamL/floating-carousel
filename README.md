@@ -127,6 +127,11 @@ In order to prevent unwanted page scrolling during touch events, a style of `bod
 
 Default: `true`
 
+### reverseOnTouch
+On non-touch devices the carousel scrolls in the opposite direction from the direction of the mouse pointer. However, I found that when using the carousel on touch devices, users expect the carousel to move in the direction they move their finger. Therefore I have decided to implement this - in my opinion - much more intuitive behaviour on touch. If you would rather not reverse the scrolling on touch, set this option to `false`.
+
+Default: `true`
+
 ## Exposed methods
 
 Usage:
