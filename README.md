@@ -118,7 +118,7 @@ A function to call after the carousel has finished initiating.
 Default: `NULL`
 
 ### enableTouchEvents
-If set to `true` the carousel will respond to touch events, with similar behaviour to the way in which it responds to mouseover events.
+If set to `true` the carousel will respond to touch events, with slightly different behaviour to the way in which it responds to mouseover events (see the `reverseOnTouch` option below).
 
 Default: `true`
 
@@ -128,7 +128,7 @@ In order to prevent unwanted page scrolling during touch events, a style of `bod
 Default: `true`
 
 ### reverseOnTouch
-On non-touch devices the carousel scrolls in the opposite direction from the direction of the mouse pointer. However, I found that when using the carousel on touch devices, users expect the carousel to move in the direction they move their finger. Therefore I have decided to implement this - in my opinion - much more intuitive behaviour on touch. If you would rather not reverse the scrolling on touch, set this option to `false`.
+When using the mouse, the carousel scrolls in the opposite direction from the direction the mouse pointer is moved. However, I found that when using touch, users expect the carousel to move in the direction they move their finger. I have decided to implement this - in my opinion - much more intuitive behaviour on touch. If you would rather <em>not</em> reverse the scrolling on touch, and instead have the carousel behave more like it does on mouse-enabled devices, set this option to `false`.
 
 Default: `true`
 
