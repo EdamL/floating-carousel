@@ -39,7 +39,8 @@
 		beforeCreateFunction : null,
 		afterCreateFunction : null,
 		enableTouchEvents : true,
-		touchOverflowHidden : true
+		touchOverflowHidden : true,
+		reverseOnTouch : true
     };
 
 	//////////////////////////////////////
@@ -183,6 +184,22 @@
 		//
 		// Private functions 
 		//
+		var cursorTest = function(direction, cursor) {
+			var rVal;
+			if(direction == 'left') {
+				if (touchEnabled && opts.reverseOnTouch) 
+					rVal = (cursor>centerPoint);
+				else 
+					rVal = (cursor<centerPoint);
+			}
+			else {
+				if (touchEnabled && opts.reverseOnTouch) 
+					rVal = (cursor<centerPoint);
+				else 
+					rVal = (cursor>centerPoint);
+			}
+			return rVal;
+		}
 
 		var autoScroll = function() {
 
@@ -245,6 +262,7 @@
 		};
 
 		var startCarousel = function() {
+
 			if (autoScrollInterval) {
 				clearInterval(autoScrollInterval);
 				autoScrollInterval = 0;
@@ -268,7 +286,7 @@
 				}
 				var cursorDistance;
 				var halfContainer = scrollContainerLength/2;
-				
+					
 				cursorDistance = (cursor<centerPoint) ? centerPoint-cursor : cursor-centerPoint;
 				
 				scrollDistance = (cursorDistance<(Math.ceil((halfContainer/100)*30))) ? 1 :
@@ -277,7 +295,7 @@
 								 ((cursorDistance<(Math.ceil((halfContainer/100)*90))) ? 4*sMultiplier :
 								 6*sMultiplier)));
 													 
-				if (cursor<centerPoint) {
+				if (cursorTest('left', cursor)) {
 													 
 					if ((scrollerPosition+scrollDistance)>0 && opts.looped==false) {
 						scrollerPosition = 0;
@@ -290,7 +308,7 @@
 						scrollerPosition = scrollerPosition+scrollDistance;
 					}
 				}
-				else if (cursor>centerPoint) { 
+				else if (cursorTest('right', cursor)) {
 					
 					if ((scrollerPosition-scrollDistance)<(0-(scrollContentLength-scrollContainerLength))) {
 						
@@ -334,7 +352,7 @@
 				}
 				var cursor = (opts.scrollerAlignment.toLowerCase()!='vertical') ? cursorPosition.x : cursorPosition.y;
 				
-				if (cursor<centerPoint) {
+				if (cursorTest('left', cursor)) {
 					if ((scrollerPosition+brakingDistance)>scrollContentLength) {
 						scrollerPosition = scrollerPosition-scrollContentLength;
 						scrollSwitch = (scrollSwitch == 0) ? 1 : 0;
@@ -348,7 +366,7 @@
 				}
 				var ivl = setInterval(function() {
 					if (scrollDistance>1) {
-						if (cursor<centerPoint) {
+						if (cursorTest('left', cursor)) {
 							scrollerPosition+=scrollDistance;
 						}
 						else {
@@ -396,7 +414,7 @@
 
 		// Event handlers
 		var touchstartHandler = function() {
-			touchEnabled = opts.enableTouchEvents || false;
+			touchEnabled = true;
 			if (opts.touchOverflowHidden)
 				document.body.style.overflow = 'hidden';
 			startCarousel();
