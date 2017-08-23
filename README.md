@@ -87,6 +87,16 @@ Integer representing the approximate time, in milliseconds, it takes for each pi
 
 Default: `10000`
 
+### initClass
+A classname which the carousel assigns to the carousel container element upon initiation
+
+Default: `'floatingCarouselContainer'`
+
+### intervalRate
+The interval rate at which the carousel animation runs in milliseconds.
+
+Default: 16
+
 ### looped
 Boolean - If set to 'false' the content will stop scrolling when its edge reaches the edge of the container, otherwise it will loop infinitely.
 
