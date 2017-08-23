@@ -31,7 +31,8 @@
 		autoScroll : false,
 		autoScrollDirection : 'left',
 		autoScrollSpeed : 10000,
-		initClass: 'floatingCarouselContainer',
+		initClass : 'floatingCarouselContainer',
+		intervalRate : 16,
 	 	looped : true,
 	 	scrollerAlignment : 'horizontal',
 		scrollerOffset : 0,
@@ -137,9 +138,12 @@
      */
     var getOffsets = function (obj) {
         var rect = obj.getBoundingClientRect();
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
 		return {
-		  top : rect.top + document.body.scrollTop,
-		  left : rect.left + document.body.scrollLeft
+		  top : parseInt(rect.top) + scrollTop,
+		  left : parseInt(rect.left) + scrollLeft
 		}
     };
 
@@ -177,9 +181,8 @@
 		var scrollContentLength = 0;
 		var scrollerHeight = 0;
 		var scrollerWidth = 0;
-		var ivlRate = 50;
 
-		var scrollContainer, autoScrollInterval, carouselPlaying, cursorPosition, scrollContainerLength, scrollerContent, scrollerPosition, sMultiplier, scrollerChildren, offSetDistance, scrollDistance, centerPoint, itemPadding, itemMargin, opts;
+		var ivlRate, scrollContainer, autoScrollInterval, carouselPlaying, cursorPosition, scrollContainerLength, scrollerContent, scrollerPosition, sMultiplier, scrollerChildren, offSetDistance, scrollDistance, centerPoint, itemPadding, itemMargin, opts;
 
 		//
 		// Private functions 
@@ -580,6 +583,8 @@
 	        domObj.classList.add(opts.initClass);
 
 	        //main plugin functionality
+
+	        ivlRate = opts.intervalRate;
 			
 			scrollContainer.style.paddingLeft = '0';
 			scrollContainer.style.paddingRight = '0';
