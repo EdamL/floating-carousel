@@ -1,5 +1,5 @@
 /*
-* floatingCarousel 4.0
+* floatingCarousel 4.0.1
 * Copyright (c) 2017 Adam Lafene
 *
 * Licensed under the terms of the MIT and GPL licenses:
@@ -181,6 +181,7 @@
 		var scrollContentLength = 0;
 		var scrollerHeight = 0;
 		var scrollerWidth = 0;
+		var brakingSpeed = 300;
 
 		var ivlRate, scrollContainer, autoScrollInterval, carouselPlaying, cursorPosition, scrollContainerLength, scrollerContent, scrollerPosition, sMultiplier, scrollerChildren, offSetDistance, scrollDistance, centerPoint, itemPadding, itemMargin, opts;
 
@@ -367,28 +368,41 @@
 						scrollSwitch = (scrollSwitch == 0) ? 1 : 0;
 					}  
 				}
-				var ivl = setInterval(function() {
-					if (scrollDistance>1) {
-						if (cursorTest('left', cursor)) {
-							scrollerPosition+=scrollDistance;
-						}
-						else {
-							scrollerPosition-=scrollDistance;
-						}
-						if (opts.scrollerAlignment.toLowerCase()!='vertical') {
-							scrollerContent[scrollSwitch].style.left = scrollerPosition+'px';
-							scrollerContent[(scrollSwitch==0) ? 1 : 0].style.left = scrollerPosition-scrollContentLength+'px';
-						}
-						else {
-							scrollerContent[scrollSwitch].style.top = scrollerPosition+'px';
-							scrollerContent[(scrollSwitch==0) ? 1 : 0].style.top = scrollerPosition-scrollContentLength+'px';
-						}
-						scrollDistance--;
-					}
-					else {
-						clearInterval(ivl);
-					}
-				}, ivlRate);
+
+				if (cursorTest('left', cursor)) {
+				    scrollerPosition += brakingDistance;
+				}
+				else {
+				    scrollerPosition -= brakingDistance;
+				}
+
+				if (opts.scrollerAlignment.toLowerCase() != 'vertical') {
+				    setProperties(scrollerContent, { transition: 'left ' + brakingSpeed + 'ms ease-out' });
+				    setTimeout(function () {
+                        scrollerContent[scrollSwitch].style.left = scrollerPosition+'px';
+					    scrollerContent[(scrollSwitch==0) ? 1 : 0].style.left = scrollerPosition-scrollContentLength+'px';
+				    }, 50);
+				}
+				else {
+				    setProperties(scrollerContent, { transition: 'top ' + brakingSpeed + 'ms ease-out' });
+				    setTimeout(function () {
+				        scrollerContent[scrollSwitch].style.top = scrollerPosition + 'px';
+				        scrollerContent[(scrollSwitch == 0) ? 1 : 0].style.top = scrollerPosition - scrollContentLength + 'px';
+				    }, 50);
+				}
+
+				setTimeout(function () {
+				    setProperties(scrollerContent, { transition: '' });
+				}, brakingSpeed +  50);
+
+				//var ivl = setInterval(function() {
+				//	if (scrollDistance>1) {
+				//		scrollDistance--;
+				//	}
+				//	else {
+				//		clearInterval(ivl);
+				//	}
+				//}, ivlRate);
 			}
 			
 		};
@@ -694,14 +708,14 @@
 
 					setProperties(obj, {
 						top : 0,
-						width : scrollContentLength +'px'
+						width: scrollContentLength + 'px'
 					});
 				}
 				else {
 					setProperties(obj, {
 						left : 0,
 						height : scrollContentLength +'px',
-						width : scrollerWidth +'px'
+						width: scrollerWidth + 'px'
 					});
 				}
 
