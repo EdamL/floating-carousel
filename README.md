@@ -1,6 +1,6 @@
 # Floating Carousel
 
-Current version: 4.0
+Current version: 4.0.1
 
 Floating Carousel is a dependency-free Javascript carousel which is intended to be clean and intuitive without the need for controls. The carousel is navigated by relative movement of the cursor (or the user's finger in the case of touch devices) over the carousel element. Moving the cursor toward  either end of the carousel causes the content to scroll in the opposite direction - the scroll speed increasing the further the cursor is moved in either direction.
 
